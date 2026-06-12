@@ -88,8 +88,10 @@ agrocommish/
 │   └── INSTRUCCIONES.txt        # Firmware build instructions (Arduino IDE)
 ├── tools/
 │   ├── capturar_datos.py        # USB telemetry recorder (calibrated + raw ADC)
+│   ├── benchmark_comisionado.py # Unattended commissioning benchmark
 │   ├── medir_tiempos.py         # Commissioning-time statistics from audit logs
 │   └── take_screenshots_win.py  # Reproducible UI captures
+├── data/                        # Reference datasets (telemetry + benchmark)
 ├── tests/
 │   └── test_core.py             # Unit tests (pytest, 20 tests)
 ├── docs/
@@ -156,8 +158,14 @@ HTTP delivery. Build instructions are in
 | Tool | Purpose |
 | --- | --- |
 | `tools/capturar_datos.py` | Record live USB telemetry (calibrated values, raw DHT11 readings, raw 12-bit ADC, HTTP delivery status) to CSV: `python tools/capturar_datos.py COM5 300 out.csv` |
+| `tools/benchmark_comisionado.py` | Unattended end-to-end commissioning benchmark (N timed runs with per-phase breakdown): `python tools/benchmark_comisionado.py COM5 SSID PASS 5` |
 | `tools/medir_tiempos.py` | Per-unit commissioning-time statistics (mean, median, range) from the session audit logs |
 | `tools/take_screenshots_win.py` | Reproducible UI captures for documentation |
+
+Reference datasets recorded with these utilities on real hardware
+(ESP32 + DHT11 + FC-28) are included under [`data/`](data/): a five-minute
+telemetry capture and a five-run commissioning benchmark
+(median 51.0 s per unit).
 
 ---
 

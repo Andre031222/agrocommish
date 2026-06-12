@@ -6,6 +6,7 @@ version: 1.0.0
 date-released: 2026-06-12
 license: MIT
 repository-code: "https://github.com/Andre031222/agrocommish"
+doi: "10.5281/zenodo.20655610"
 authors:
   - family-names: "Vilca Solorzano"
     given-names: "Richar Andre"

@@ -1,0 +1,47 @@
+=========================================================
+  COMO OBTENER EL ARCHIVO firmware.bin
+=========================================================
+
+1. Abre Arduino IDE 2.x
+
+2. Instala las librerias necesarias (Gestor de librerias):
+   - ArduinoJson  (versión 6.x, by Benoit Blanchon)
+   - DHT sensor library  (by Adafruit)
+   - Adafruit Unified Sensor
+
+3. Instala soporte para ESP32 (si no lo tienes):
+   - Archivo → Preferencias → URLs adicionales:
+     https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+   - Herramientas → Placa → Gestor de placas → busca "esp32" → instalar
+
+4. Abre el archivo:
+   ..\Soft_TerraSense\arduino\agrovision_provisioning\agrovision_provisioning.ino
+
+5. Selecciona:
+   - Placa:  "ESP32 Dev Module"
+   - Puerto: (no importa, no vamos a subir desde aqui)
+
+6. Exportar binario compilado:
+   - Menu: Boceto → Exportar binario compilado
+   - O: Ctrl + Alt + S
+
+7. Copia el archivo generado:
+   agrovision_provisioning.ino.bin   (o .esp32.bin)
+
+   a esta carpeta:
+   firmware\firmware.bin
+
+8. Abre AgroCommish.exe y el archivo ya aparecera
+   seleccionado automaticamente.
+
+=========================================================
+  NOTA SOBRE LA DIRECCION DE FLASH (0x0 vs 0x1000)
+=========================================================
+Si usas "Exportar binario compilado" de Arduino IDE, genera
+un firmware "merged" que incluye bootloader + particiones + app.
+Ese archivo se graba en 0x0 (configurado en flasher.py).
+
+Si obtienes SOLO el .bin de la app (sin bootloader), cambia
+FLASH_ADDR = '0x10000' en core/flasher.py
+
+=========================================================

@@ -88,6 +88,20 @@ def _puerto_abierto(host: str, puerto: int, timeout: float = 2.0) -> bool:
         return False
 
 
+def _api_base_local(server_url: str) -> str:
+    parsed = urllib.parse.urlparse(server_url)
+    if not parsed.scheme or not parsed.netloc:
+        return "http://localhost:5000"
+    host   = parsed.hostname or ""
+    puerto = parsed.port or (443 if parsed.scheme == "https" else 80)
+    es_lan = (host.startswith("192.168.") or host.startswith("10.") or
+              host.startswith("127.") or host == "localhost" or
+              any(host.startswith(f"172.{n}.") for n in range(16, 32)))
+    if es_lan and _puerto_abierto("localhost", puerto, timeout=1.0):
+        return f"{parsed.scheme}://localhost:{puerto}"
+    return f"{parsed.scheme}://{parsed.netloc}"
+
+
 def _titulo_claro(win):
     if sys.platform != "win32":
         return
@@ -451,6 +465,13 @@ class AgroFlasher(ctk.CTk):
 
         self._btn_web_adv.configure(
             text=("▼  " if self._web_adv_visible else "▶  ") + T("s5_web_url"))
+
+        self._btn_adv.configure(
+            text=("▼  " if self._adv_visible else "▶  ") + T("s3_adv_server"))
+
+        _fw_exists = Path(self._fw_path.get()).exists()
+        self._fw_chip_lbl.configure(
+            text=T("s2_fw_ok") if _fw_exists else T("s2_fw_missing"))
 
         _ph = ["(sin dispositivos)", "(no devices)"]
         curr = self._port_combo.cget("values")
@@ -1711,15 +1732,14 @@ class AgroFlasher(ctk.CTk):
                     self._serial_lock.release()
 
             server = self._server_url.get().strip()
-            parsed = urllib.parse.urlparse(server)
-            api_base = (f"{parsed.scheme}://{parsed.netloc}"
-                        if parsed.scheme and parsed.netloc else None)
             did = self._device_id or ""
+            api_base = _api_base_local(server) if server else None
 
             if not api_base or not did or did == "DESCONOCIDO":
                 fallar(T("s4_no_did"))
                 return
 
+            parsed   = urllib.parse.urlparse(api_base)
             srv_host = parsed.hostname
             srv_port = parsed.port or (443 if parsed.scheme == "https" else 80)
             if not _puerto_abierto(srv_host, srv_port):
@@ -2083,14 +2103,10 @@ class AgroFlasher(ctk.CTk):
             self._btn_web_adv.configure(text="▶  " + T("s5_web_url"))
 
     def _prepare_activate(self):
-        server   = self._server_url.get().strip()
-        _parsed  = urllib.parse.urlparse(server)
-        api_base = (f"{_parsed.scheme}://{_parsed.netloc}"
-                    if _parsed.scheme and _parsed.netloc
-                    else "http://localhost:5000")
+        api_base = _api_base_local(self._server_url.get().strip())
         self._lbl_api_url.configure(
             text=api_base,
-            text_color=C_ORANGE if _parsed.scheme == "http" else "#166534")
+            text_color=C_ORANGE if api_base.startswith("http://") else "#166534")
         self._reset_activate_form()
 
     def _reset_activate_form(self):
@@ -2112,13 +2128,9 @@ class AgroFlasher(ctk.CTk):
             self._lbl_activate_st.configure(text=T("s5_sin_creds"), text_color=C_RED)
             return
 
-        server   = self._server_url.get().strip()
-        _parsed  = urllib.parse.urlparse(server)
-        api_base = (f"{_parsed.scheme}://{_parsed.netloc}"
-                    if _parsed.scheme and _parsed.netloc
-                    else "http://localhost:5000")
+        api_base = _api_base_local(self._server_url.get().strip())
 
-        if _parsed.scheme == "http":
+        if api_base.startswith("http://"):
             self._lbl_activate_st.configure(text=T("s5_http_warn"), text_color=C_ORANGE)
 
         self._btn_activate.configure(state="disabled", text=T("s5_conectando"))

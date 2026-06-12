@@ -1,0 +1,16 @@
+build/
+dist/
+__pycache__/
+*.pyc
+*.pyo
+logs/
+config.json
+firmware/*.bin
+firmware/*.elf
+firmware/*.map
+screenshots/
+SOFTWAREX_RESEARCH.md
+.claude/
+.vscode/
+.github/copilot*
+.pytest_cache/

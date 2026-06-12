@@ -19,6 +19,7 @@
 | Richar Andre Vilca-Solorzano | Universidad Nacional del Altiplano de Puno, Peru |
 | Dina Maribel Yana-Yucra | Universidad Nacional del Altiplano de Puno, Peru |
 | Renato Quispe-Vargas | Universidad Nacional del Altiplano de Puno, Peru |
+| Vladimiro Ibañez-Quispe | Universidad Nacional del Altiplano de Puno, Peru |
 | Fred Torres-Cruz | Universidad Nacional del Altiplano de Puno, Peru |
 
 **Faculty:** Ingenieria Estadistica e Informatica — Universidad Nacional del Altiplano (UNA), Puno, Peru
@@ -179,7 +180,8 @@ If you use this software, please cite:
 ```bibtex
 @software{vilca2026agrocommish,
   author  = {Vilca Solorzano, Richar Andre and Yana Yucra, Dina Maribel and
-             Quispe Vargas, Renato and Torres Cruz, Fred},
+             Quispe Vargas, Renato and Iba{\~n}ez Quispe, Vladimiro and
+             Torres Cruz, Fred},
   title   = {AgroCommish: An Integrated Desktop Tool for End-to-End
              Manufacturing and Commissioning of ESP32-Based Agricultural
              IoT Devices},

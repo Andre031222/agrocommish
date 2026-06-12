@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AgroCommish: An Integrated Desktop Tool for End-to-End Manufacturing and Commissioning of ESP32-Based Agricultural IoT Devices"
+type: software
+version: 1.0.0
+date-released: 2026-06-12
+license: MIT
+repository-code: "https://github.com/Andre031222/agrocommish"
+authors:
+  - family-names: "Vilca Solorzano"
+    given-names: "Richar Andre"
+    email: "andrevilcasolorzano@gmail.com"
+    orcid: "https://orcid.org/0009-0003-2385-5263"
+    affiliation: "Universidad Nacional del Altiplano, Puno, Peru"
+  - family-names: "Yana Yucra"
+    given-names: "Dina Maribel"
+    email: "maribelbel201314@gmail.com"
+    orcid: "https://orcid.org/0009-0003-6218-2735"
+    affiliation: "Universidad Nacional del Altiplano, Puno, Peru"
+  - family-names: "Torres Cruz"
+    given-names: "Fred"
+    email: "ftorres@unap.edu.pe"
+    orcid: "https://orcid.org/0000-0003-0834-6834"
+    affiliation: "Universidad Nacional del Altiplano, Puno, Peru"
+keywords:
+  - ESP32
+  - IoT commissioning
+  - agricultural sensors
+  - firmware flashing
+  - device provisioning

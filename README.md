@@ -1,4 +1,4 @@
-# AgroCommish: An Integrated Desktop Tool for End-to-End Manufacturing and Commissioning of ESP32-Based Agricultural IoT Devices
+# AgroCommish: A Plug-and-Play Desktop Tool for End-to-End Manufacturing and Commissioning of ESP32-Based Agricultural IoT Sensor Nodes
 
 **Status:** Manuscript in preparation for SoftwareX (Elsevier)
 **Software DOI:** [10.5281/zenodo.20655610](https://doi.org/10.5281/zenodo.20655610)
@@ -190,9 +190,9 @@ If you use this software, please cite:
   author  = {Vilca Solorzano, Richar Andre and Yana Yucra, Dina Maribel and
              Quispe Vargas, Renato and Iba{\~n}ez Quispe, Vladimiro and
              Torres Cruz, Fred},
-  title   = {AgroCommish: An Integrated Desktop Tool for End-to-End
+  title   = {AgroCommish: A Plug-and-Play Desktop Tool for End-to-End
              Manufacturing and Commissioning of ESP32-Based Agricultural
-             IoT Devices},
+             IoT Sensor Nodes},
   year    = {2026},
   version = {1.0.0},
   doi     = {10.5281/zenodo.20655610},

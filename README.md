@@ -1,14 +1,58 @@
-# AgroCommish: A Plug-and-Play Desktop Tool for End-to-End Manufacturing and Commissioning of ESP32-Based Agricultural IoT Sensor Nodes
+<!-- ============================================================
+     HERO HEADER
+     ============================================================ -->
+<div align="center">
 
-**Status:** Manuscript in preparation for SoftwareX (Elsevier)
-**Software DOI:** [10.5281/zenodo.20655610](https://doi.org/10.5281/zenodo.20655610)
-**License:** [MIT](LICENSE)
-**Latest release:** [v1.0.0](https://github.com/Andre031222/agrocommish/releases/tag/v1.0.0) (standalone Windows executable + firmware)
+<img src="https://raw.githubusercontent.com/Andre031222/agrocommish/main/assets/logo.png" height="100" alt="AgroCommish logo"/>
 
-[![CI](https://img.shields.io/github/actions/workflow/status/Andre031222/agrocommish/ci.yml?style=flat-square&label=CI)](https://github.com/Andre031222/agrocommish/actions/workflows/ci.yml)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655610-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20655610)
-[![License: MIT](https://img.shields.io/badge/License-MIT-15803d?style=flat-square)](LICENSE)
-[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-64748b?style=flat-square)](https://www.python.org/)
+# AgroCommish
+
+### Plug-and-play desktop tool for end-to-end manufacturing &amp; commissioning of ESP32-based agricultural IoT sensor nodes
+
+<p>
+  <a href="https://doi.org/10.5281/zenodo.20655610"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655610-1d4ed8?style=for-the-badge"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2E7D32?style=for-the-badge"></a>
+  <a href="https://github.com/Andre031222/agrocommish/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-0F2444?style=for-the-badge&logo=github&logoColor=white"></a>
+  <img src="https://img.shields.io/badge/SoftwareX-in%20preparation-616161?style=for-the-badge">
+  <a href="https://github.com/Andre031222/agroyachay"><img src="https://img.shields.io/badge/Companion-AgroYachay-2E7D32?style=for-the-badge&logo=github&logoColor=white"></a>
+</p>
+
+<p>
+  <a href="https://github.com/Andre031222/agrocommish/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Andre031222/agrocommish/ci.yml?style=flat-square&label=CI"></a>
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-555?style=flat-square">
+  <img src="https://img.shields.io/badge/Python-3.9%2B-64748b?style=flat-square&logo=python&logoColor=white">
+</p>
+
+<p align="center">
+  <em>
+    From a bare <b>ESP32</b> board to a flashed, provisioned, verified and
+    cloud-registered sensor node in <b>minutes</b> &mdash; through a single
+    five-step desktop wizard, without ever touching a terminal.
+  </em>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Andre031222/agrocommish">
+    <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=18&duration=2800&pause=900&color=2E7D32&center=true&vCenter=true&width=820&lines=detect+-%3E+flash+-%3E+configure+-%3E+verify+-%3E+activate;automatic+ESP32+chip+%26+sensor-pin+discovery;JSON-over-serial+provisioning+%2B+telemetry+capture;one+technician%2C+no+terminal%2C+~51s+per+unit;feeds+verified+nodes+to+the+AgroYachay+cloud">
+  </a>
+</p>
+
+<img src="docs/screenshot.png" width="760" alt="AgroCommish five-step wizard"/>
+
+</div>
+
+---
+
+## Tech stack
+
+<div align="center">
+  <img height="46" alt="Python"  src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg">
+  <img height="46" alt="Arduino" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/arduino/arduino-original.svg">
+  &nbsp;
+  <img src="https://img.shields.io/badge/ESP32-000000?style=flat-square&logo=espressif&logoColor=white">
+  <img src="https://img.shields.io/badge/esptool-3C3C3C?style=flat-square">
+  <img src="https://img.shields.io/badge/PyInstaller-FFD43B?style=flat-square&logo=python&logoColor=black">
+</div>
 
 ---
 
@@ -22,7 +66,7 @@
 | Vladimiro Ibañez-Quispe | Universidad Nacional del Altiplano de Puno, Peru |
 | Fred Torres-Cruz | Universidad Nacional del Altiplano de Puno, Peru |
 
-**Faculty:** Ingenieria Estadistica e Informatica — Universidad Nacional del Altiplano (UNA), Puno, Peru
+**Faculty:** Ingeniería Estadística e Informática — Universidad Nacional del Altiplano (UNAP), Puno, Peru
 
 ---
 
@@ -42,7 +86,10 @@ verified, and cloud-registered sensor node in minutes — without touching a
 terminal. A systematic comparison against 13 publicly available tools shows
 that no prior tool covers the full pipeline.
 
-![AgroCommish wizard](docs/screenshot.png)
+AgroCommish is the device-side counterpart of the
+**[AgroYachay](https://github.com/Andre031222/agroyachay)** cloud platform;
+together they form an open, reproducible *device-to-decision* pipeline for
+low-resource agriculture.
 
 ---
 
@@ -54,7 +101,7 @@ that no prior tool covers the full pipeline.
 | 2. Flash | Full-erase firmware flashing via esptool (`--chip auto`: ESP32, S3, C6) with a phased progress indicator, followed by automatic discovery of the GPIO pins where the sensors are physically wired (persisted to device NVS) |
 | 3. Configure | WiFi and ingestion-endpoint provisioning over a newline-framed JSON serial protocol; on-device network scanning with RSSI; pre-flight server reachability diagnostics; optional sensor calibration without recompiling |
 | 4. Verify | Three-channel sensor verification (JSON command, passive USB telemetry listening, ingestion API polling) validated against physical and agronomic ranges; QR label generation; one-click telemetry export to CSV |
-| 5. Activate | JWT-based auto-login into the TerraSense web platform; the browser opens with the session already active |
+| 5. Activate | JWT-based auto-login into the **AgroYachay** web platform; the browser opens with the session already active |
 
 Additional capabilities: bilingual English/Spanish interface switchable at
 runtime, per-milestone commissioning audit logs (CSV), toast notifications,
@@ -96,7 +143,7 @@ agrocommish/
 │   └── test_core.py             # Unit tests (pytest, 20 tests)
 ├── docs/
 │   ├── README.es.md             # Documentation in Spanish
-│   └── ECOSISTEMA.md            # AgroCommish + TerraSense ecosystem overview
+│   └── ECOSISTEMA.md            # AgroCommish + AgroYachay ecosystem overview
 ├── .github/workflows/ci.yml     # CI: pyflakes + pytest on Windows/Ubuntu
 ├── AgroCommish.spec             # PyInstaller build definition
 ├── build.bat                    # One-command executable build
@@ -181,6 +228,15 @@ suite on Windows and Ubuntu with Python 3.11 and 3.12 on every push.
 
 ---
 
+## Companion Ecosystem
+
+| Project | Role | Reference |
+| --- | --- | --- |
+| **AgroCommish** (this repo) | Manufactures and commissions ESP32 sensor nodes (detect → flash → provision → verify → activate) | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655610-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20655610) |
+| **[AgroYachay](https://github.com/Andre031222/agroyachay)** | Cloud decision platform: monitoring, LLM agronomy, yield/revenue, reports | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20829993-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20829993) |
+
+---
+
 ## Citation
 
 If you use this software, please cite:
@@ -208,7 +264,8 @@ Citation metadata is also available in [`CITATION.cff`](CITATION.cff)
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+See Spanish documentation in [`docs/README.es.md`](docs/README.es.md).
 
-## Documentation in Spanish
-
-See [`docs/README.es.md`](docs/README.es.md).
+<div align="center">
+<sub>Part of an open device-to-decision pipeline for Andean smallholder agriculture · Universidad Nacional del Altiplano (UNAP), Puno, Peru</sub>
+</div>

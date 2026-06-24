@@ -93,6 +93,24 @@ low-resource agriculture.
 
 ---
 
+## Architecture
+
+<div align="center">
+<img src="docs/img/architecture.png" width="860" alt="AgroCommish system architecture"/>
+</div>
+
+AgroCommish is organised in two layers. A **presentation layer** built with
+CustomTkinter drives the five-step wizard, runtime EN/ES internationalisation,
+and session persistence. A hardware-agnostic **core layer** wraps the
+device-facing concerns into independent modules — `detector.py` (USB/COM
+enumeration), `flasher.py` (esptool full-erase driver), `provisioner.py`
+(JSON-over-serial protocol and telemetry capture), and `qr_generator.py`. Over
+USB/serial it commissions the **ESP32 + DHT11 + FC-28** node; the verified node
+then reports to the **[AgroYachay](https://github.com/Andre031222/agroyachay)**
+cloud platform over WiFi/HTTP.
+
+---
+
 ## Key Features
 
 | Step | Function |
@@ -115,6 +133,42 @@ scans the six ADC1 channels for the characteristic signal of the FC-28
 analogue output (mean and dispersion heuristics over 16 samples per pin),
 persists the discovered pin map to non-volatile storage, and reports it to
 the operator — eliminating wiring-dependent configuration entirely.
+
+---
+
+## Five-step walkthrough
+
+The whole node comes to life through a single guided wizard — no terminal, no
+manual configuration files.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="docs/img/step1-detect.png" width="100%" alt="Step 1 — Detect"/>
+<p align="center"><b>1 · Detect</b><br/>Automatic USB/COM discovery with live hotplug monitoring and positive ESP32 bridge identification (CP210x, CH340/341, FT232).</p>
+</td>
+<td width="50%" valign="top">
+<img src="docs/img/step2-flash.png" width="100%" alt="Step 2 — Flash"/>
+<p align="center"><b>2 · Flash</b><br/>Full-erase firmware flashing (<code>--chip auto</code>) with a phased progress bar, followed by automatic discovery of the sensor GPIO pins.</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="docs/img/step3-configure.png" width="100%" alt="Step 3 — Configure"/>
+<p align="center"><b>3 · Configure</b><br/>WiFi and ingestion-endpoint provisioning over JSON-over-serial, with on-device network scanning and pre-flight reachability checks.</p>
+</td>
+<td width="50%" valign="top">
+<img src="docs/img/step4-verify.png" width="100%" alt="Step 4 — Verify"/>
+<p align="center"><b>4 · Verify</b><br/>Three-channel sensor verification against physical and agronomic ranges, QR-label generation, and one-click telemetry export to CSV.</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center" valign="top">
+<img src="docs/img/step5-activate.png" width="50%" alt="Step 5 — Activate"/>
+<p align="center"><b>5 · Activate</b><br/>JWT-based auto-login into the AgroYachay web platform — the browser opens with the session already active.</p>
+</td>
+</tr>
+</table>
 
 ---
 
@@ -213,6 +267,24 @@ Reference datasets recorded with these utilities on real hardware
 (ESP32 + DHT11 + FC-28) are included under [`data/`](data/): a five-minute
 telemetry capture and a five-run commissioning benchmark
 (median 51.0 s per unit).
+
+---
+
+## Empirical validation
+
+Across five unattended end-to-end runs on real hardware, AgroCommish
+commissioned a node in a **median of 51.0 s per unit**, and the integrated
+verification step caught genuine sensor faults *before* packaging. The figure
+below shows a live telemetry capture: calibrated temperature, air humidity and
+soil moisture (left) alongside the raw 12-bit ADC trace used for FC-28
+calibration (right).
+
+<div align="center">
+<img src="docs/img/captured-data.png" width="820" alt="Captured telemetry: calibrated channels and raw ADC"/>
+</div>
+
+Both the benchmark and the telemetry datasets ship in [`data/`](data/) so the
+results are fully reproducible.
 
 ---
 

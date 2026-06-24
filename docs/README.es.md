@@ -7,7 +7,7 @@ Configura ESP32 + DHT11 + FC-28 de forma masiva antes de entregar el hardware al
 
 ## Este producto vs el sistema web
 
-| | `AgroCommish` | `TerraSense` |
+| | `AgroCommish` | `AgroYachay` |
 | --- | --- | --- |
 | **Quién lo usa** | Desarrollador / Fábrica | Usuario final (agricultor) |
 | **Dónde corre** | PC del técnico | Servidor / cloud |
@@ -39,7 +39,7 @@ Paso 4 — Verificar
   Genera QR con el device_id · Exporta telemetría a CSV
   Marca como LISTO → registra hitos con timestamp en el log CSV
 
-Paso 5 — Activar  ← integración con TerraSense
+Paso 5 — Activar  ← integración con AgroYachay
   Inicia sesión con credenciales del sistema web
   Obtiene un JWT y abre el navegador con auto-login → /dispositivos
 ```
@@ -119,7 +119,7 @@ Ver detalles en [`firmware/INSTRUCCIONES.txt`](../firmware/INSTRUCCIONES.txt).
 
 ---
 
-## Integración con TerraSense (Paso 5)
+## Integración con AgroYachay (Paso 5)
 
 AgroCommish hace `POST /api/auth/login` con las credenciales del técnico,
 recibe un JWT y abre el navegador en `/auto-login#token=JWT&redirect=dispositivos`;
@@ -129,5 +129,5 @@ vincular a un cultivo. El diagrama completo del ecosistema y del flujo de
 datos en producción está en [`ECOSISTEMA.md`](ECOSISTEMA.md).
 
 Ambas aplicaciones son independientes: AgroCommish puede configurar el ESP32
-contra cualquier backend HTTP, y TerraSense acepta dispositivos configurados
+contra cualquier backend HTTP, y AgroYachay acepta dispositivos configurados
 por otros medios.

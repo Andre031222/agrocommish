@@ -132,7 +132,15 @@ probes the DHT11 single-wire protocol across 17 candidate digital GPIOs and
 scans the six ADC1 channels for the characteristic signal of the FC-28
 analogue output (mean and dispersion heuristics over 16 samples per pin),
 persists the discovered pin map to non-volatile storage, and reports it to
-the operator — eliminating wiring-dependent configuration entirely.
+the operator, removing wiring-dependent configuration.
+
+In 200 bench trials on four boards, the DHT11 was identified correctly every
+time (on GPIO 15, 4 and 27, and as absent when disconnected), the FC-28 was
+located in all 120 trials with its probe immersed, and no false positive
+occurred. A **dry probe is not detected**: its output rests at one end of the
+ADC range and cannot be told apart from an unconnected pin. Insert the probe
+into moist soil, or touch its tips, before running discovery. See
+[Empirical validation](#empirical-validation).
 
 ---
 
@@ -190,9 +198,10 @@ agrocommish/
 ├── tools/
 │   ├── capturar_datos.py        # USB telemetry recorder (calibrated + raw ADC)
 │   ├── benchmark_comisionado.py # Unattended commissioning benchmark
+│   ├── validar_deteccion_pines.py # Pin-discovery accuracy trials
 │   ├── medir_tiempos.py         # Commissioning-time statistics from audit logs
 │   └── take_screenshots_win.py  # Reproducible UI captures
-├── data/                        # Reference datasets (telemetry + benchmark)
+├── data/                        # Reference datasets (telemetry, benchmark, pin discovery)
 ├── tests/
 │   └── test_core.py             # Unit tests (pytest, 20 tests)
 ├── docs/
@@ -260,13 +269,14 @@ HTTP delivery. Build instructions are in
 | --- | --- |
 | `tools/capturar_datos.py` | Record live USB telemetry (calibrated values, raw DHT11 readings, raw 12-bit ADC, HTTP delivery status) to CSV: `python tools/capturar_datos.py COM5 300 out.csv` |
 | `tools/benchmark_comisionado.py` | Unattended end-to-end commissioning benchmark (N timed runs with per-phase breakdown): `python tools/benchmark_comisionado.py COM5 SSID PASS 5` |
+| `tools/validar_deteccion_pines.py` | Repeated pin-discovery trials against declared ground-truth pins, with raw ADC scans (use `-1` for a disconnected sensor): `python tools/validar_deteccion_pines.py COM5 A 15 34 water 20` |
 | `tools/medir_tiempos.py` | Per-unit commissioning-time statistics (mean, median, range) from the session audit logs |
 | `tools/take_screenshots_win.py` | Reproducible UI captures for documentation |
 
 Reference datasets recorded with these utilities on real hardware
 (ESP32 + DHT11 + FC-28) are included under [`data/`](data/): a five-minute
-telemetry capture and a five-run commissioning benchmark
-(median 51.0 s per unit).
+telemetry capture, a five-run commissioning benchmark (median 51.0 s per
+unit), and a 200-trial pin-discovery validation on four boards.
 
 ---
 
@@ -283,8 +293,34 @@ calibration (right).
 <img src="docs/img/captured-data.png" width="820" alt="Captured telemetry: calibrated channels and raw ADC"/>
 </div>
 
-Both the benchmark and the telemetry datasets ship in [`data/`](data/) so the
-results are fully reproducible.
+### Automatic pin discovery
+
+The `detect_pins` routine was run 200 times on four NodeMCU-32S boards under
+six wiring conditions, each trial compared against the pins declared by the
+operator.
+
+| Condition | Boards | Trials | DHT11 | FC-28 |
+| --- | --- | ---: | --- | --- |
+| Probe immersed, default wiring | 4 | 80 | 80/80 | 80/80 |
+| DHT11 moved to GPIO 4 | 1 | 20 | 20/20 | 20/20 |
+| DHT11 moved to GPIO 27 | 1 | 20 | 20/20 | 20/20 |
+| FC-28 disconnected | 1 | 20 | 20/20 | 20/20 absent |
+| No sensors connected | 1 | 20 | 20/20 absent | 20/20 absent |
+| Probe dry, in air | 1 | 40 | 40/40 | 0/40 |
+| **Total** | | **200** | **200/200** | **160/200** |
+
+No false positive occurred: of 1,040 readings on unconnected ADC channels,
+none fell inside an acceptance region (panel c). All 40 FC-28 misses come from
+a dry probe, which saturates at 4,095, just above the 4,094 bound. Discovery
+takes about 1 s when the DHT11 sits on the first candidate pin and up to 23 s
+when no DHT11 is connected (panel d).
+
+<div align="center">
+<img src="docs/img/pin-discovery-validation.png" width="820" alt="Sensor signals and pin-discovery validation"/>
+</div>
+
+The benchmark, telemetry and pin-discovery datasets ship in [`data/`](data/)
+so the results are fully reproducible.
 
 ---
 

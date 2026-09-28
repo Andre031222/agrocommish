@@ -60,8 +60,15 @@ Tras flashear, la app envía `{"cmd":"detect_pins"}` al firmware: este escanea
 los GPIOs digitales buscando el protocolo del DHT11 y los pines ADC1 buscando
 la señal del FC-28, persiste lo encontrado en NVS y la app muestra los pines
 reales en la tabla de verificación. Para que el FC-28 se detecte con confianza
-debe estar en tierra o con las puntas tocadas (señal > 400 ADC); en aire se
-reporta como "posible" y conviene repetir con el botón 🔍 Detectar pines.
+debe estar en tierra húmeda o con las puntas tocadas. **Con la sonda seca no se
+detecta**: según el módulo, su salida queda en un extremo del ADC (unos 50–190,
+o 4095 saturado) y no se distingue de un pin libre. En ese caso, humedece la
+sonda y repite con el botón 🔍 Detectar pines.
+
+Validación: en 200 pruebas sobre cuatro placas, el DHT11 se identificó bien
+las 200 veces (en GPIO 15, 4 y 27, y como ausente sin conectar), el FC-28 se
+localizó en las 120 pruebas con la sonda sumergida y no hubo ningún falso
+positivo. Los datos están en `data/deteccion_pines.csv`.
 
 ### Calibración (opcional)
 
@@ -114,6 +121,7 @@ Ver detalles en [`firmware/INSTRUCCIONES.txt`](../firmware/INSTRUCCIONES.txt).
 | Herramienta | Uso |
 | --- | --- |
 | `tools/capturar_datos.py` | Captura telemetría USB a CSV: `python tools/capturar_datos.py COM5 300 salida.csv` |
+| `tools/validar_deteccion_pines.py` | Pruebas repetidas de detección de pines contra los pines reales declarados, con el escaneo ADC crudo (`-1` = sensor desconectado): `python tools/validar_deteccion_pines.py COM5 A 15 34 agua 20` |
 | `tools/medir_tiempos.py` | Estadísticas de tiempo de comisionado por unidad desde los logs de sesión |
 | `tools/take_screenshots_win.py` | Capturas reproducibles de la interfaz |
 

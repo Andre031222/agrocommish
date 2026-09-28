@@ -10,7 +10,7 @@
 ### Plug-and-play desktop tool for end-to-end manufacturing &amp; commissioning of ESP32-based agricultural IoT sensor nodes
 
 <p>
-  <a href="https://doi.org/10.5281/zenodo.20655610"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655610-1d4ed8?style=for-the-badge"></a>
+  <a href="https://doi.org/10.5281/zenodo.20655609"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-1d4ed8?style=for-the-badge"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2E7D32?style=for-the-badge"></a>
   <a href="https://github.com/Andre031222/agrocommish/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-0F2444?style=for-the-badge&logo=github&logoColor=white"></a>
   <img src="https://img.shields.io/badge/SoftwareX-in%20preparation-616161?style=for-the-badge">
@@ -340,7 +340,7 @@ suite on Windows and Ubuntu with Python 3.11 and 3.12 on every push.
 
 | Project | Role | Reference |
 | --- | --- | --- |
-| **AgroCommish** (this repo) | Manufactures and commissions ESP32 sensor nodes (detect → flash → provision → verify → activate) | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655610-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20655610) |
+| **AgroCommish** (this repo) | Manufactures and commissions ESP32 sensor nodes (detect → flash → provision → verify → activate) | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20655609) |
 | **[AgroYachay](https://github.com/Andre031222/agroyachay)** | Cloud decision platform: monitoring, LLM agronomy, yield/revenue, reports | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20829993-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20829993) |
 
 ---
@@ -351,15 +351,15 @@ If you use this software, please cite:
 
 ```bibtex
 @software{vilca2026agrocommish,
-  author  = {Vilca Solorzano, Richar Andre and Yana Yucra, Dina Maribel and
-             Quispe Vargas, Renato and Iba{\~n}ez Quispe, Vladimiro and
-             Torres Cruz, Fred},
+  author  = {Vilca-Solorzano, Richar Andre and Yana-Yucra, Dina Maribel and
+             Quispe-Vargas, Renato and Iba{\~n}ez-Quispe, Vladimiro and
+             Torres-Cruz, Fred},
   title   = {AgroCommish: A Plug-and-Play Desktop Tool for End-to-End
              Manufacturing and Commissioning of ESP32-Based Agricultural
              IoT Sensor Nodes},
   year    = {2026},
-  version = {1.0.0},
-  doi     = {10.5281/zenodo.20655610},
+  version = {1.1.0},
+  doi     = {10.5281/zenodo.20655609},
   url     = {https://github.com/Andre031222/agrocommish}
 }
 ```

@@ -1,8 +1,8 @@
 {
   "title": "AgroCommish: A Plug-and-Play Desktop Tool for End-to-End Manufacturing and Commissioning of ESP32-Based Agricultural IoT Sensor Nodes",
   "upload_type": "software",
-  "version": "1.2.0",
-  "description": "<p>AgroCommish is an open-source Python desktop application that takes an ESP32 board from bare hardware to a flashed, provisioned, verified and cloud-registered agricultural sensor node through a five-step wizard: USB detection, full-erase flashing with automatic GPIO pin discovery, WiFi and server provisioning, sensor verification, and cloud activation.</p><p>Version 1.2.0 redesigns the interface (light and dark themes, collapsible sidebar, vector icons, faster step changes), adds WiFi security checks and a per-unit checklist, shows the moist-soil instruction when the soil probe is not found, publishes the ESP32 firmware source, and builds the Windows executable automatically on release.</p>",
+  "version": "1.2.1",
+  "description": "<p>AgroCommish is an open-source Python desktop application that takes an ESP32 board from bare hardware to a flashed, provisioned, verified and cloud-registered agricultural sensor node through a five-step wizard: USB detection, full-erase flashing with automatic GPIO pin discovery, WiFi and server provisioning, sensor verification, and cloud activation.</p><p>Version 1.2.1 removes the comments from the firmware source and the status symbols from the interface messages. Version 1.2.0 redesigned the interface (light and dark themes, collapsible sidebar, vector icons, faster step changes), adds WiFi security checks and a per-unit checklist, shows the moist-soil instruction when the soil probe is not found, publishes the ESP32 firmware source, and builds the Windows executable automatically on release.</p>",
   "creators": [
     {
       "name": "Vilca-Solorzano, Richar Andre",

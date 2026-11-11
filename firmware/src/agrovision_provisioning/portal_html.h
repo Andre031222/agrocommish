@@ -1,6 +1,3 @@
-// HTML del portal de configuración (captive portal)
-// En un .h separado: el preprocesador de sketches de Arduino (ctags)
-// malinterpreta el JavaScript del raw string y genera prototipos inválidos.
 #pragma once
 
 const char* SETUP_HTML = R"=====(

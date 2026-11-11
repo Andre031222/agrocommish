@@ -251,7 +251,7 @@ class VerifyStep:
             self._ui(lambda: self._export_ok(len(filas), path))
         except (TimeoutError, RuntimeError, OSError) as e:
             self._ui(lambda err=str(e): (self._btn_export.configure(state="normal"),
-                                         self._lbl_test_st.configure(text=f"✗  {err}", text_color=th.DANGER)))
+                                         self._lbl_test_st.configure(text=f"{err}", text_color=th.DANGER)))
         finally:
             self._serial_lock.release()
 
@@ -282,7 +282,7 @@ class VerifyStep:
             guardar_qr(did, path, box_size=10)
             self._lbl_result.configure(text=T("s4_qr_saved", name=Path(path).name), text_color=th.INFO)
         except OSError as e:
-            self._lbl_result.configure(text=f"✗  {e}", text_color=th.DANGER)
+            self._lbl_result.configure(text=f"{e}", text_color=th.DANGER)
 
     def _mark_done(self):
         self._batch_count += 1

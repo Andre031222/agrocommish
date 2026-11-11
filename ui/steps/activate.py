@@ -190,7 +190,7 @@ class ActivateStep:
         except urllib.error.HTTPError as e:
             self._ui(lambda m=T("s5_http_err", code=e.code): self._login_err(m))
         except (urllib.error.URLError, OSError, ValueError) as e:
-            self._ui(lambda m=f"✗  {e}": self._login_err(m))
+            self._ui(lambda m=f"{e}": self._login_err(m))
 
     def _login_ok(self, nombre: str):
         self._spin_stop()

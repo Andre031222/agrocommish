@@ -66,7 +66,7 @@ class FlashStep:
         tono = "success" if existe else "warn"
         fg, bg = th.TONES[tono]
         self._fw_row.configure(fg_color=bg)
-        texto = (T("s2_fw_ok") if existe else T("s2_fw_missing")).lstrip("✓⚠ ")
+        texto = (T("s2_fw_ok") if existe else T("s2_fw_missing"))
         self._fw_lbl.configure(text=f"  {texto}", text_color=fg, image=icon(TONE_ICONS[tono], 18, fg))
 
     def _lang_refresh_flash(self):
@@ -219,7 +219,7 @@ class FlashStep:
             self._scan_wifi()
 
     def _flash_err(self, msg: str):
-        self._log_write_ui(f"\n✗  Error: {msg}")
+        self._log_write_ui(f"\nError: {msg}")
         self._reset_flash_bar()
         self._btn_flash.configure(state="normal", text=T("s2_reintento"))
         self._toast("error", T("toast_err_t"), msg.splitlines()[0][:120], ms=4500)

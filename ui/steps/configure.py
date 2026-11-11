@@ -170,7 +170,7 @@ class ConfigureStep:
                 self._ui(lambda: self._render_net_cards(nets))
             except (TimeoutError, RuntimeError, OSError) as e:
                 self._ui(lambda err=str(e): (
-                    self._lbl_cfg_st.configure(text=f"✗  {err}", text_color=th.DANGER),
+                    self._lbl_cfg_st.configure(text=f"{err}", text_color=th.DANGER),
                     self._btn_scan_wifi.configure(state="normal", text=T("s3_btn_escanear"))))
             finally:
                 self._serial_lock.release()
@@ -306,7 +306,7 @@ class ConfigureStep:
 
     def _config_err(self, msg: str):
         self._spin_stop()
-        self._lbl_cfg_st.configure(text=f"✗  {msg}", text_color=th.DANGER)
+        self._lbl_cfg_st.configure(text=f"{msg}", text_color=th.DANGER)
         self._btn_cfg.configure(state="normal", text=T("s3_btn_enviar"))
         self._toast("error", T("toast_err_t"), msg.splitlines()[0][:120], ms=4500)
 
@@ -337,9 +337,9 @@ class ConfigureStep:
                 if r.get("ok"):
                     self._ui(lambda: self._cal_done(T("s3_cal_ok"), th.SUCCESS))
                 else:
-                    self._ui(lambda: self._cal_done(f"✗  {r.get('error', '?')}", th.DANGER))
+                    self._ui(lambda: self._cal_done(f"{r.get('error', '?')}", th.DANGER))
             except (TimeoutError, RuntimeError, OSError) as e:
-                self._ui(lambda err=str(e): self._cal_done(f"✗  {err}", th.DANGER))
+                self._ui(lambda err=str(e): self._cal_done(f"{err}", th.DANGER))
             finally:
                 self._serial_lock.release()
 

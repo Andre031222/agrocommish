@@ -187,18 +187,18 @@ El agricultor ve su dispositivo registrado en AgroYachay sin haber hecho nada �
 ┌──────────────────────────────────────────────────────────────┐
 │                    AgroCommish                               │
 │                                                              │
-│  ✓  Funciona SIN internet (solo necesita USB + WiFi local)  │
-│  ✓  Funciona SIN AgroYachay instalado                       │
-│  ✓  Puede configurar ESP32 para cualquier backend HTTP       │
-│  ✓  .exe standalone — sin instalar Python                   │
+│  -  Funciona SIN internet (solo necesita USB + WiFi local)  │
+│  -  Funciona SIN AgroYachay instalado                       │
+│  -  Puede configurar ESP32 para cualquier backend HTTP       │
+│  -  .exe standalone — sin instalar Python                   │
 └──────────────────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────────────────┐
 │                    AgroYachay                                │
 │                                                              │
-│  ✓  Funciona con dispositivos configurados manualmente      │
-│  ✓  No depende de AgroCommish para recibir datos            │
-│  ✓  Puede recibir datos de ESP32 configurados de otra forma │
+│  -  Funciona con dispositivos configurados manualmente      │
+│  -  No depende de AgroCommish para recibir datos            │
+│  -  Puede recibir datos de ESP32 configurados de otra forma │
 └──────────────────────────────────────────────────────────────┘
 
          Se integran en el Paso 5 — pero cada uno es autónomo.

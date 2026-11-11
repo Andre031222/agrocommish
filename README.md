@@ -6,7 +6,7 @@
 
 ### Plug-and-play commissioning of ESP32 agricultural sensor nodes, from bare board to cloud
 
-[![Release](https://img.shields.io/badge/release-1.2.0-2E7D32?style=flat-square&labelColor=0b1220&logo=github&logoColor=white)](https://github.com/Andre031222/agrocommish/releases/latest)
+[![Release](https://img.shields.io/badge/release-1.2.1-2E7D32?style=flat-square&labelColor=0b1220&logo=github&logoColor=white)](https://github.com/Andre031222/agrocommish/releases/latest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-2E7D32?style=flat-square&labelColor=0b1220)](https://doi.org/10.5281/zenodo.20655609)
 [![License](https://img.shields.io/badge/license-MIT-2E7D32?style=flat-square&labelColor=0b1220)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Andre031222/agrocommish/ci.yml?style=flat-square&labelColor=0b1220&label=tests)](https://github.com/Andre031222/agrocommish/actions/workflows/ci.yml)
@@ -192,7 +192,7 @@ The Windows executable is built with `pyinstaller AgroCommish.spec`; the release
              Manufacturing and Commissioning of ESP32-Based Agricultural
              IoT Sensor Nodes},
   year    = {2026},
-  version = {1.2.0},
+  version = {1.2.1},
   doi     = {10.5281/zenodo.20655609},
   url     = {https://github.com/Andre031222/agrocommish}
 }

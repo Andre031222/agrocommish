@@ -163,7 +163,8 @@ class TestIdiomas:
         assert set(STRINGS['es']) == set(STRINGS['en'])
 
     def test_claves_usadas_existen(self):
-        src = (ROOT / "app.py").read_text(encoding='utf-8')
+        fuentes = [ROOT / "app.py", *sorted((ROOT / "ui").rglob("*.py"))]
+        src = "\n".join(f.read_text(encoding='utf-8') for f in fuentes)
         usadas = set(re.findall(r"T\(['\"]([a-z0-9_]+)['\"]", src))
         assert usadas <= set(STRINGS['es'])
 

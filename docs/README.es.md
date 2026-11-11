@@ -1,141 +1,70 @@
-# AgroCommish — Herramienta de Fabricación
+<div align="center">
 
-Aplicación de escritorio (.exe) para desarrolladores y fabricantes.
-Configura ESP32 + DHT11 + FC-28 de forma masiva antes de entregar el hardware al usuario final.
+<img src="../assets/logo.png" alt="AgroCommish" width="96" height="96">
 
----
+# AgroCommish
 
-## Este producto vs el sistema web
+### Puesta en marcha plug-and-play de nodos agrícolas ESP32, de la placa vacía a la nube
 
-| | `AgroCommish` | `AgroYachay` |
-| --- | --- | --- |
-| **Quién lo usa** | Desarrollador / Fábrica | Usuario final (agricultor) |
-| **Dónde corre** | PC del técnico | Servidor / cloud |
-| **Cuándo se usa** | Una vez, antes de entregar el hardware | Siempre, en producción |
-| **Qué configura** | El microprocesador ESP32 | La cuenta y los cultivos |
-| **Requiere internet** | No (solo USB) | Sí |
+</div>
 
----
+AgroCommish es un asistente de escritorio que lleva una placa ESP32 desde cero hasta un nodo de sensores grabado, configurado, probado y registrado en la nube. El técnico conecta la placa y sigue cinco pasos: la herramienta detecta el puente USB, graba el firmware, encuentra los pines donde están cableados los sensores, envía la red WiFi y el servidor, comprueba cada lectura y entrega el nodo a la plataforma. No hace falta terminal, scripts ni tablas de pines.
 
-## Flujo del técnico (5 pasos)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/step3-dark.png">
+  <img alt="Paso 3: redes WiFi con su seguridad y señal" src="img/step3-light.png">
+</picture>
 
-```text
-Paso 1 — Detectar
-  Conecta el ESP32 por USB → se detecta automáticamente (hotplug)
+## Instalar
 
-Paso 2 — Flashear
-  Borra la flash completa y graba el firmware .bin con esptool
-  Al reiniciar: identifica el dispositivo y AUTO-DETECTA en qué
-  pines están conectados el DHT11 y el FC-28 (se guardan en NVS)
+| Opción | Cómo |
+|---|---|
+| Windows 10/11, sin Python | Descarga `AgroCommish.exe` y `firmware.bin` de la [última versión](https://github.com/Andre031222/agrocommish/releases/latest), deja `firmware.bin` en una carpeta `firmware` junto al ejecutable y ábrelo. |
+| Desde el código (Windows, macOS, Linux) | `pip install -r requirements.txt` y luego `python app.py` |
+| Verla sin placa | `python app.py --demo` llena cada paso con valores de ejemplo. |
 
-Paso 3 — Configurar
-  Envía por serial: WiFi + URL del servidor (con verificación previa
-  de que el servidor responde desde esta PC)
-  Opcional: calibración de offsets y re-detección manual de pines
+En Windows hace falta el driver del puente USB de la placa (CP210x o CH340).
 
-Paso 4 — Verificar
-  Test automático en 3 niveles: comando serial → escucha pasiva de
-  telemetría USB → consulta a la API del servidor
-  Genera QR con el device_id · Exporta telemetría a CSV
-  Marca como LISTO → registra hitos con timestamp en el log CSV
+## Los cinco pasos
 
-Paso 5 — Activar  ← integración con AgroYachay
-  Inicia sesión con credenciales del sistema web
-  Obtiene un JWT y abre el navegador con auto-login → /dispositivos
-```
+| Paso | Qué hace |
+|---|---|
+| 1 · Detectar | Revisa los puertos USB cada segundo y reconoce los puentes CP210x, CH340/CH341 y FT232. Al conectar una placa pasa solo al paso 2. |
+| 2 · Grabar | Borra la memoria y graba el firmware con esptool, muestra el chip detectado y busca los pines del DHT11 y del FC-28. |
+| 3 · Configurar | Escanea las redes desde la placa con su señal y seguridad, valida la contraseña, comprueba el servidor y permite calibrar. |
+| 4 · Verificar | Compara las lecturas con rangos físicos y agronómicos y genera la etiqueta QR del dispositivo. |
+| 5 · Activar | Inicia sesión en la plataforma y abre el navegador con la sesión activa; la lista de la unidad queda completa. |
 
----
+## Otros microcontroladores y otros sistemas
 
-## Sensores soportados
+AgroCommish es de código abierto y no está atado a esta placa ni a estos sensores. esptool detecta el chip, el protocolo JSON por serie no depende del hardware y los sensores nuevos se agregan ampliando el firmware ([`firmware/src`](../firmware/src)) y `SENSOR_SPECS` en `core/provisioner.py`.
 
-| Sensor | Pin por defecto | Lecturas | Rango normal |
-| --- | --- | --- | --- |
-| DHT11 | GPIO 15 (auto-detectable) | Temperatura (°C) | 5 – 45 °C |
-| DHT11 | GPIO 15 (auto-detectable) | Humedad del aire (%) | 20 – 95 % |
-| FC-28 | GPIO 34 (auto-detectable, solo ADC1: 32–39) | Humedad del suelo (%) | 0 – 100 % |
+La plataforma de referencia es **[AgroYachay](https://agroyachay.ginit.dev)** ([SoftwareX 36, 103037](https://doi.org/10.1016/j.softx.2026.103037)), pero el servidor es un ajuste: sirve cualquier backend que reciba las lecturas JSON y ofrezca `POST /api/auth/login`.
 
-### Auto-detección de pines
+## Seguridad
 
-Tras flashear, la app envía `{"cmd":"detect_pins"}` al firmware: este escanea
-los GPIOs digitales buscando el protocolo del DHT11 y los pines ADC1 buscando
-la señal del FC-28, persiste lo encontrado en NVS y la app muestra los pines
-reales en la tabla de verificación. Para que el FC-28 se detecte con confianza
-debe estar en tierra húmeda o con las puntas tocadas. **Con la sonda seca no se
-detecta**: según el módulo, su salida queda en un extremo del ADC (unos 50–190,
-o 4095 saturado) y no se distingue de un pin libre. En ese caso, humedece la
-sonda y repite con el botón 🔍 Detectar pines.
+| Riesgo | Cómo se maneja |
+|---|---|
+| Contraseña WiFi | Viaja solo por el cable USB, no se guarda en disco y se borra del formulario al terminar. |
+| Redes abiertas | Se marcan como *Abierta* y se avisa antes de usarlas. |
+| Servidor `http://` | Aviso permanente antes de activar. |
+| Token de la plataforma | Va en el fragmento de la URL y no llega a los registros del servidor; queda en el historial del navegador, por eso no conviene usar la herramienta en una computadora ajena. |
 
-Validación: en 200 pruebas sobre cuatro placas, el DHT11 se identificó bien
-las 200 veces (en GPIO 15, 4 y 27, y como ausente sin conectar), el FC-28 se
-localizó en las 120 pruebas con la sonda sumergida y no hubo ningún falso
-positivo. Los datos están en `data/deteccion_pines.csv`.
+## Validación
 
-### Calibración (opcional)
+En 200 pruebas sobre cuatro placas NodeMCU-32S, el DHT11 se detectó en todas (IC 95 %: 98,2–100 %) y no hubo falsos positivos. El FC-28 solo falla con la sonda seca, por eso el asistente pide insertarla en tierra húmeda. Los datos están en [`data/`](../data/) y los scripts en [`tools/`](../tools/).
 
-Los offsets se guardan en la NVS del ESP32 (memoria no volátil).
-No requieren recompilar el firmware. Efectivos inmediatamente.
-
-| Parámetro | Por defecto | Descripción |
-| --- | --- | --- |
-| `TEMP_OFFSET` | 0.0 | Corrección en °C para DHT11 |
-| `HUM_OFFSET` | 0.0 | Corrección en % para humedad del aire |
-| `SOIL_DRY` | 50 | ADC del FC-28 en seco (en aire) |
-| `SOIL_WET` | 3200 | ADC del FC-28 sumergido en agua |
-
----
-
-## Instalación y uso
-
-### Modo desarrollo (sin compilar)
+## Desarrollo
 
 ```bash
-pip install -r requirements.txt
-python app.py
+pip install -r requirements.txt pytest pyflakes
+python -m pyflakes app.py ui core tools tests
+python -m pytest tests/ -v
+python app.py --demo
 ```
 
-### Generar el .exe para distribuir
+La documentación completa, la arquitectura y la cita están en el [README principal](../README.md).
 
-```bat
-build.bat
-```
-
-El `.exe` se genera en `dist\AgroCommish.exe`. Para distribuir solo necesitas
-`AgroCommish.exe` y `firmware\firmware.bin` en la misma carpeta.
-
----
-
-## Obtener el firmware.bin
-
-1. Abre el sketch `agrovision_provisioning.ino` en Arduino IDE 2.x
-2. Instala las librerías: `ArduinoJson`, `DHT sensor library`, `Adafruit Unified Sensor`
-3. Selecciona placa: **ESP32 Dev Module**
-4. Menú: **Boceto → Exportar binario compilado**
-5. Copia el `.bin` *merged* generado a `firmware/firmware.bin`
-
-Ver detalles en [`firmware/INSTRUCCIONES.txt`](../firmware/INSTRUCCIONES.txt).
-
----
-
-## Herramientas de línea de comandos
-
-| Herramienta | Uso |
-| --- | --- |
-| `tools/capturar_datos.py` | Captura telemetría USB a CSV: `python tools/capturar_datos.py COM5 300 salida.csv` |
-| `tools/validar_deteccion_pines.py` | Pruebas repetidas de detección de pines contra los pines reales declarados, con el escaneo ADC crudo (`-1` = sensor desconectado): `python tools/validar_deteccion_pines.py COM5 A 15 34 agua 20` |
-| `tools/medir_tiempos.py` | Estadísticas de tiempo de comisionado por unidad desde los logs de sesión |
-| `tools/take_screenshots_win.py` | Capturas reproducibles de la interfaz |
-
----
-
-## Integración con AgroYachay (Paso 5)
-
-AgroCommish hace `POST /api/auth/login` con las credenciales del técnico,
-recibe un JWT y abre el navegador en `/auto-login#token=JWT&redirect=dispositivos`;
-el frontend valida el token, lo guarda en `localStorage` y redirige a
-**Dispositivos**, donde el equipo recién comisionado aparece como pendiente de
-vincular a un cultivo. El diagrama completo del ecosistema y del flujo de
-datos en producción está en [`ECOSISTEMA.md`](ECOSISTEMA.md).
-
-Ambas aplicaciones son independientes: AgroCommish puede configurar el ESP32
-contra cualquier backend HTTP, y AgroYachay acepta dispositivos configurados
-por otros medios.
+<div align="center">
+<sub>Universidad Nacional del Altiplano (UNAP) · Puno, Perú · Licencia MIT</sub>
+</div>

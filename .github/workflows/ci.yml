@@ -23,6 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyserial Pillow "qrcode[pil]" esptool pytest pyflakes
       - name: Static analysis
-        run: python -m pyflakes app.py core tools tests
+        run: python -m pyflakes app.py ui core tests tools/benchmark_comisionado.py tools/capturar_datos.py tools/medir_tiempos.py tools/validar_deteccion_pines.py
       - name: Unit tests
         run: python -m pytest tests/ -v

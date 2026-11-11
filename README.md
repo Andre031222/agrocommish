@@ -1,356 +1,190 @@
-<!-- ============================================================
-     HERO HEADER
-     ============================================================ -->
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Andre031222/agrocommish/main/assets/logo.png" height="100" alt="AgroCommish logo"/>
+<img src="assets/logo.png" alt="AgroCommish" width="112" height="112">
 
 # AgroCommish
 
-### Plug-and-play desktop tool for end-to-end manufacturing &amp; commissioning of ESP32-based agricultural IoT sensor nodes
+### Plug-and-play commissioning of ESP32 agricultural sensor nodes, from bare board to cloud
 
-<p>
-  <a href="https://doi.org/10.5281/zenodo.20655609"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-1d4ed8?style=for-the-badge"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2E7D32?style=for-the-badge"></a>
-  <a href="https://github.com/Andre031222/agrocommish/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-0F2444?style=for-the-badge&logo=github&logoColor=white"></a>
-  <img src="https://img.shields.io/badge/SoftwareX-in%20preparation-616161?style=for-the-badge">
-  <a href="https://github.com/Andre031222/agroyachay"><img src="https://img.shields.io/badge/Companion-AgroYachay-2E7D32?style=for-the-badge&logo=github&logoColor=white"></a>
-</p>
-
-<p>
-  <a href="https://github.com/Andre031222/agrocommish/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Andre031222/agrocommish/ci.yml?style=flat-square&label=CI"></a>
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-555?style=flat-square">
-  <img src="https://img.shields.io/badge/Python-3.9%2B-64748b?style=flat-square&logo=python&logoColor=white">
-</p>
-
-<p align="center">
-  <em>
-    From a bare <b>ESP32</b> board to a flashed, provisioned, verified and
-    cloud-registered sensor node in <b>minutes</b> &mdash; through a single
-    five-step desktop wizard, without ever touching a terminal.
-  </em>
-</p>
-
-<p align="center">
-  <a href="https://github.com/Andre031222/agrocommish">
-    <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=18&duration=2800&pause=900&color=2E7D32&center=true&vCenter=true&width=820&lines=detect+-%3E+flash+-%3E+configure+-%3E+verify+-%3E+activate;automatic+ESP32+chip+%26+sensor-pin+discovery;JSON-over-serial+provisioning+%2B+telemetry+capture;one+technician%2C+no+terminal%2C+~51s+per+unit;feeds+verified+nodes+to+the+AgroYachay+cloud">
-  </a>
-</p>
-
-<img src="docs/screenshot.png" width="760" alt="AgroCommish five-step wizard"/>
+[![Release](https://img.shields.io/badge/release-1.2.0-2E7D32?style=flat-square&labelColor=0b1220&logo=github&logoColor=white)](https://github.com/Andre031222/agrocommish/releases/latest)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-2E7D32?style=flat-square&labelColor=0b1220)](https://doi.org/10.5281/zenodo.20655609)
+[![License](https://img.shields.io/badge/license-MIT-2E7D32?style=flat-square&labelColor=0b1220)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/Andre031222/agrocommish/ci.yml?style=flat-square&labelColor=0b1220&label=tests)](https://github.com/Andre031222/agrocommish/actions/workflows/ci.yml)
+[![Languages](https://img.shields.io/badge/EN_%C2%B7_ES-interface-2E7D32?style=flat-square&labelColor=0b1220)](#features)
+<br>
+<img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.9+">
+<img src="https://img.shields.io/badge/CustomTkinter-5.2-1f6feb?style=flat-square" alt="CustomTkinter 5.2">
+<img src="https://img.shields.io/badge/esptool-5.x-E7352C?style=flat-square&logo=espressif&logoColor=white" alt="esptool 5">
+<img src="https://img.shields.io/badge/ESP32-Arduino_3.3-00979D?style=flat-square&logo=arduino&logoColor=white" alt="Arduino-ESP32">
 
 </div>
 
----
+> [!NOTE]
+> **Español** — La documentación en español está en [`docs/README.es.md`](docs/README.es.md). La interfaz cambia entre español e inglés sin reiniciar.
 
-## Tech stack
+AgroCommish is a desktop wizard that takes an ESP32 board from bare hardware to a flashed, provisioned, tested and cloud-registered sensor node. A technician plugs the board in and follows five steps; the tool detects the USB bridge, writes the firmware, finds the GPIO pins where the sensors are wired, sends the WiFi and server settings, checks every sensor reading and hands the node over to the cloud platform. No terminal, scripts or manual pin tables are needed.
 
-<div align="center">
-  <img height="46" alt="Python"  src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg">
-  <img height="46" alt="Arduino" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/arduino/arduino-original.svg">
-  &nbsp;
-  <img src="https://img.shields.io/badge/ESP32-000000?style=flat-square&logo=espressif&logoColor=white">
-  <img src="https://img.shields.io/badge/esptool-3C3C3C?style=flat-square">
-  <img src="https://img.shields.io/badge/PyInstaller-FFD43B?style=flat-square&logo=python&logoColor=black">
-</div>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/step3-dark.png">
+  <img alt="AgroCommish, step 3: WiFi networks with their security and signal" src="docs/img/step3-light.png">
+</picture>
 
----
+* * *
 
-## Authors
+## Contents
 
-| Name | Institution |
-| --- | --- |
-| Richar Andre Vilca-Solorzano | Universidad Nacional del Altiplano de Puno, Peru |
-| Dina Maribel Yana-Yucra | Universidad Nacional del Altiplano de Puno, Peru |
-| Renato Quispe-Vargas | Universidad Nacional del Altiplano de Puno, Peru |
-| Vladimiro Ibañez-Quispe | Universidad Nacional del Altiplano de Puno, Peru |
-| Fred Torres-Cruz | Universidad Nacional del Altiplano de Puno, Peru |
+1. [Install](#install)
+2. [Why it exists](#why-it-exists)
+3. [Features](#features)
+4. [The five steps](#the-five-steps)
+5. [Hardware and other microcontrollers](#hardware-and-other-microcontrollers)
+6. [Cloud platform](#cloud-platform)
+7. [Security](#security)
+8. [Validation](#validation)
+9. [Architecture](#architecture)
+10. [Development](#development)
+11. [Citation](#citation)
+12. [License and third-party assets](#license-and-third-party-assets)
 
-**Faculty:** Ingeniería Estadística e Informática — Universidad Nacional del Altiplano (UNAP), Puno, Peru
+## Install
 
----
+| Option | How |
+|---|---|
+| Windows 10/11, no Python | Download `AgroCommish.exe` and `firmware.bin` from the [latest release](https://github.com/Andre031222/agrocommish/releases/latest), put `firmware.bin` in a `firmware` folder next to the executable and run it. |
+| From source (Windows, macOS, Linux) | `pip install -r requirements.txt` then `python app.py` |
+| Look around without a board | `python app.py --demo` fills every step with illustrative values. |
 
-## Overview
+On Windows, the USB driver for the board's bridge (CP210x or CH340) must be installed.
 
-Deploying ESP32-based sensor nodes at scale requires a repeatable manufacturing
-workflow executable by technicians with limited software expertise. The
-conventional approach fragments this workflow across multiple disconnected
-tools: command-line flashers, custom provisioning scripts, hand-written serial
-monitor sessions, and manual cloud registration. Each transition introduces
-error-prone steps and increases the field failure rate of deployed nodes.
+## Why it exists
 
-**AgroCommish** integrates the complete commissioning pipeline for ESP32 +
-DHT11 + FC-28 agricultural sensor nodes into a single five-step desktop
-wizard. A technician takes a bare ESP32 board to a fully flashed, provisioned,
-verified, and cloud-registered sensor node in minutes — without touching a
-terminal. A systematic comparison against 13 publicly available tools shows
-that no prior tool covers the full pipeline.
+Commissioning a low-cost agricultural sensor node usually spreads across several tools: `esptool` on the command line, a script for the WiFi credentials, a serial monitor to read the sensors and a web form to register the device. Each hand-over is a chance to flash the wrong image, mistype the server address or ship a node with a loose sensor. AgroCommish puts the whole sequence in one guided window, so that a field technician with no programming background can prepare a batch of nodes and catch wiring faults before they leave the workshop.
 
-AgroCommish is the device-side counterpart of the
-**[AgroYachay](https://github.com/Andre031222/agroyachay)** cloud platform;
-together they form an open, reproducible *device-to-decision* pipeline for
-low-resource agriculture.
+## Features
 
----
+| | |
+|---|---|
+| **Plug-and-play** | The board is recognised on connection and the wizard moves to the next step on its own. |
+| **Pin auto-discovery** | After flashing, the firmware probes 17 GPIOs for the DHT11 and the six ADC1 channels for the FC-28, and stores the pin map on the device. |
+| **Verification that works offline** | Sensor readings are checked over USB first, so a node can be tested even when the backend is down. |
+| **Network pre-flight** | The server address is tested before it is written to the device, and the workstation's real LAN address is suggested when it fails. |
+| **WiFi security checks** | Each network is labelled as secured or open, WPA/WPA2 passwords are checked for length, and the password is cleared after use. |
+| **Unit checklist** | A live checklist tracks detection, flashing, pins, WiFi, sensors and activation for every unit. |
+| **Light and dark themes** | System, light (white) or dark (black) appearance, a collapsible sidebar and vector icons. |
+| **Audit trail** | Every milestone is written to a timestamped CSV log; telemetry can be exported to CSV and the device ID printed as a QR label. |
+
+## The five steps
+
+| Step | What happens | Screen |
+|---|---|---|
+| 1 · Detect | USB ports are polled every second; CP210x, CH340/CH341 and FT232 bridges are recognised automatically. | <img src="docs/img/step1-light.png" width="280" alt="Step 1"> |
+| 2 · Flash | Full chip erase and firmware write with esptool; the chip type is shown, then the sensor pins are discovered. | <img src="docs/img/step2-light.png" width="280" alt="Step 2"> |
+| 3 · Configure | On-device WiFi scan with signal and security, password checks and server pre-flight; optional calibration. | <img src="docs/img/step3-light.png" width="280" alt="Step 3"> |
+| 4 · Verify | DHT11 and FC-28 readings are checked against physical and agronomic ranges; QR label with the device ID. | <img src="docs/img/step4-light.png" width="280" alt="Step 4"> |
+| 5 · Activate | Login to the cloud platform and automatic browser session; the unit checklist closes the batch entry. | <img src="docs/img/step5-light.png" width="280" alt="Step 5"> |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/sidebar-collapsed-dark.png">
+  <img alt="Collapsed sidebar" src="docs/img/sidebar-collapsed-light.png" width="640">
+</picture>
+
+## Hardware and other microcontrollers
+
+The reference node is an ESP32 (NodeMCU-32S, ESP32-WROOM-32) with a DHT11 temperature and humidity sensor and an FC-28 resistive soil-moisture probe, powered at 3.3 V.
+
+| Item | Default |
+|---|---|
+| DHT11 data | GPIO 15 (auto-discovered) |
+| FC-28 analogue output | GPIO 34 (auto-discovered, ADC1 only) |
+| USB bridges recognised | CP210x, CH340/CH341, FT232 |
+
+AgroCommish is open source and is not tied to this board or sensor pair. `esptool` detects the chip automatically, the JSON-over-serial protocol is hardware-agnostic, and new sensors are added by extending the firmware command set and `SENSOR_SPECS` in [`core/provisioner.py`](core/provisioner.py). The firmware source is in [`firmware/src/agrovision_provisioning`](firmware/src/agrovision_provisioning); build it with Arduino-ESP32 3.3 and ArduinoJson 7 to target another ESP32 variant.
+
+## Cloud platform
+
+The reference platform is **[AgroYachay](https://agroyachay.ginit.dev)**, an open-source IoT and decision-support system for Andean smallholders ([SoftwareX 36, 103037](https://doi.org/10.1016/j.softx.2026.103037)). It receives the node readings, links each device to its owner and serves the dashboard opened in step 5.
+
+The platform is a setting, not a dependency. Any backend that accepts the JSON readings at the ingestion endpoint and exposes `POST /api/auth/login` returning a token can be used; change the server address under *Advanced server settings* in step 3 and the web address in step 5.
+
+## Security
+
+AgroCommish assumes a trusted workshop: the operator holds the board and controls the computer.
+
+| Exposure | How it is handled |
+|---|---|
+| WiFi password over USB | Sent only over the point-to-point USB cable, never written to disk, cleared from the form after use. |
+| Open WiFi networks | Labelled as *Open* and flagged before use. |
+| Telemetry over `http://` | A persistent warning is shown before activation. |
+| Platform token | Passed to the browser in a URL fragment, so it does not reach server logs; it remains in the local browser history, which is why the tool should not be used on an untrusted computer. |
+
+## Validation
+
+The pin-discovery routine was run 200 times on four NodeMCU-32S boards under six wiring conditions (95 % Clopper–Pearson intervals).
+
+| Condition | Trials | DHT11 | FC-28 |
+|---|---:|---|---|
+| Probe immersed, default wiring | 80 | 80/80 | 80/80 |
+| DHT11 moved to GPIO 4 / GPIO 27 | 40 | 40/40 | 40/40 |
+| FC-28 disconnected | 20 | 20/20 | 20/20 absent |
+| No sensors connected | 20 | 20/20 absent | 20/20 absent |
+| Probe dry, in air | 40 | 40/40 | 0/40 |
+| **Total** | **200** | **200/200** (98.2–100 %) | **160/200** |
+
+No false positive occurred. The only failure mode is a dry probe, which rests at a supply rail and cannot be told apart from an unconnected input; the wizard asks the operator to insert the probe into moist soil. Five end-to-end runs on one board took a median of 51.0 s per unit. All datasets are in [`data/`](data/) and the scripts that produced them in [`tools/`](tools/).
+
+<img src="docs/img/pin-discovery-validation.png" alt="Pin-discovery validation" width="820">
 
 ## Architecture
 
-<div align="center">
-<img src="docs/img/architecture.png" width="860" alt="AgroCommish system architecture"/>
-</div>
+<img src="docs/img/architecture.png" alt="AgroCommish architecture" width="860">
 
-AgroCommish is organised in two layers. A **presentation layer** built with
-CustomTkinter drives the five-step wizard, runtime EN/ES internationalisation,
-and session persistence. A hardware-agnostic **core layer** wraps the
-device-facing concerns into independent modules — `detector.py` (USB/COM
-enumeration), `flasher.py` (esptool full-erase driver), `provisioner.py`
-(JSON-over-serial protocol and telemetry capture), and `qr_generator.py`. Over
-USB/serial it commissions the **ESP32 + DHT11 + FC-28** node; the verified node
-then reports to the **[AgroYachay](https://github.com/Andre031222/agroyachay)**
-cloud platform over WiFi/HTTP.
-
----
-
-## Key Features
-
-| Step | Function |
-| --- | --- |
-| 1. Detect | Automatic USB/COM port discovery with live hotplug monitoring; positive identification of CP210x, CH340/341, and FT232 bridges |
-| 2. Flash | Full-erase firmware flashing via esptool (`--chip auto`: ESP32, S3, C6) with a phased progress indicator, followed by automatic discovery of the GPIO pins where the sensors are physically wired (persisted to device NVS) |
-| 3. Configure | WiFi and ingestion-endpoint provisioning over a newline-framed JSON serial protocol; on-device network scanning with RSSI; pre-flight server reachability diagnostics; optional sensor calibration without recompiling |
-| 4. Verify | Three-channel sensor verification (JSON command, passive USB telemetry listening, ingestion API polling) validated against physical and agronomic ranges; QR label generation; one-click telemetry export to CSV |
-| 5. Activate | JWT-based auto-login into the **AgroYachay** web platform; the browser opens with the session already active |
-
-Additional capabilities: bilingual English/Spanish interface switchable at
-runtime, per-milestone commissioning audit logs (CSV), toast notifications,
-and a standalone telemetry capture utility for building validation datasets.
-
-### Automatic sensor pin discovery
-
-After flashing, AgroCommish issues a `detect_pins` command. The firmware
-probes the DHT11 single-wire protocol across 17 candidate digital GPIOs and
-scans the six ADC1 channels for the characteristic signal of the FC-28
-analogue output (mean and dispersion heuristics over 16 samples per pin),
-persists the discovered pin map to non-volatile storage, and reports it to
-the operator, removing wiring-dependent configuration.
-
-In 200 bench trials on four boards, the DHT11 was identified correctly every
-time (on GPIO 15, 4 and 27, and as absent when disconnected), the FC-28 was
-located in all 120 trials with its probe immersed, and no false positive
-occurred. A **dry probe is not detected**: its output rests at one end of the
-ADC range and cannot be told apart from an unconnected pin. Insert the probe
-into moist soil, or touch its tips, before running discovery. See
-[Empirical validation](#empirical-validation).
-
----
-
-## Five-step walkthrough
-
-The whole node comes to life through a single guided wizard — no terminal, no
-manual configuration files.
-
-<table>
-<tr>
-<td width="50%" valign="top">
-<img src="docs/img/step1-detect.png" width="100%" alt="Step 1 — Detect"/>
-<p align="center"><b>1 · Detect</b><br/>Automatic USB/COM discovery with live hotplug monitoring and positive ESP32 bridge identification (CP210x, CH340/341, FT232).</p>
-</td>
-<td width="50%" valign="top">
-<img src="docs/img/step2-flash.png" width="100%" alt="Step 2 — Flash"/>
-<p align="center"><b>2 · Flash</b><br/>Full-erase firmware flashing (<code>--chip auto</code>) with a phased progress bar, followed by automatic discovery of the sensor GPIO pins.</p>
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-<img src="docs/img/step3-configure.png" width="100%" alt="Step 3 — Configure"/>
-<p align="center"><b>3 · Configure</b><br/>WiFi and ingestion-endpoint provisioning over JSON-over-serial, with on-device network scanning and pre-flight reachability checks.</p>
-</td>
-<td width="50%" valign="top">
-<img src="docs/img/step4-verify.png" width="100%" alt="Step 4 — Verify"/>
-<p align="center"><b>4 · Verify</b><br/>Three-channel sensor verification against physical and agronomic ranges, QR-label generation, and one-click telemetry export to CSV.</p>
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center" valign="top">
-<img src="docs/img/step5-activate.png" width="50%" alt="Step 5 — Activate"/>
-<p align="center"><b>5 · Activate</b><br/>JWT-based auto-login into the AgroYachay web platform — the browser opens with the session already active.</p>
-</td>
-</tr>
-</table>
-
----
-
-## Repository Structure
-
-```text
-agrocommish/
-│
-├── app.py                       # GUI application (five-step wizard)
-├── core/                        # Hardware-agnostic core modules
-│   ├── detector.py              # USB/COM enumeration and ESP32 identification
-│   ├── flasher.py               # esptool subprocess driver (full-erase, chip auto)
-│   ├── provisioner.py           # JSON-over-serial protocol + telemetry capture
-│   ├── config_manager.py        # Session persistence (config.json)
-│   ├── qr_generator.py          # QR label generation
-│   └── lang.py                  # EN/ES runtime internationalisation
-├── firmware/
-│   └── INSTRUCCIONES.txt        # Firmware build instructions (Arduino IDE)
-├── tools/
-│   ├── capturar_datos.py        # USB telemetry recorder (calibrated + raw ADC)
-│   ├── benchmark_comisionado.py # Unattended commissioning benchmark
-│   ├── validar_deteccion_pines.py # Pin-discovery accuracy trials
-│   ├── medir_tiempos.py         # Commissioning-time statistics from audit logs
-│   └── take_screenshots_win.py  # Reproducible UI captures
-├── data/                        # Reference datasets (telemetry, benchmark, pin discovery)
-├── tests/
-│   └── test_core.py             # Unit tests (pytest, 20 tests)
-├── docs/
-│   ├── README.es.md             # Documentation in Spanish
-│   └── ECOSISTEMA.md            # AgroCommish + AgroYachay ecosystem overview
-├── .github/workflows/ci.yml     # CI: pyflakes + pytest on Windows/Ubuntu
-├── AgroCommish.spec             # PyInstaller build definition
-├── build.bat                    # One-command executable build
-├── CITATION.cff                 # Citation metadata
-└── requirements.txt
+```
+app.py                      Entry point (python app.py [--demo])
+ui/
+  window.py                 Window, sidebar, navigation, theme and language
+  theme.py                  Colour tokens (light/dark), fonts and easing
+  widgets.py                Buttons, cards, banners, toasts and splash screen
+  icons.py                  Tinted vector icons
+  demo.py                   Demonstration data
+  steps/                    detect · flash · configure · verify · activate
+core/
+  detector.py               USB/COM enumeration and bridge identification
+  flasher.py                esptool wrapper with progress parsing
+  provisioner.py            JSON-over-serial protocol and sensor validation
+  network.py                Reachability checks and WiFi password rules
+  config_manager.py         Session settings (config.json)
+  lang.py                   Spanish and English strings
+  qr_generator.py           QR labels
+firmware/src/               ESP32 firmware source
+tools/                      Benchmark, validation, capture and icon scripts
+data/                       Benchmark, telemetry and pin-discovery datasets
 ```
 
----
-
-## Installation
-
-### Option A — Windows binary (no installation required)
-
-Download `AgroCommish.exe` and `firmware.bin` from the
-[latest release](https://github.com/Andre031222/agrocommish/releases) and
-arrange them as:
-
-```text
-AgroCommish.exe
-firmware/firmware.bin
-```
-
-### Option B — From source
+## Development
 
 ```bash
-git clone https://github.com/Andre031222/agrocommish.git
-cd agrocommish
-pip install -r requirements.txt
-python app.py
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt pytest pyflakes
+python -m pyflakes app.py ui core tools tests
+python -m pytest tests/ -v
+python app.py --demo
 ```
-
-Requires Python 3.9 or later. Tested on Windows 10/11; core modules are
-platform-independent (Linux/macOS supported from source).
-
-### Building the executable
-
-```bat
-build.bat
-```
-
-Produces a standalone `dist/AgroCommish.exe` via PyInstaller.
-
----
-
-## Firmware
-
-The companion ESP32 firmware (Arduino) implements the JSON serial protocol
-(`identify`, `scan`, `config`, `calibrate`, `read_sensors`, `detect_pins`,
-`set_pins`), a captive-portal fallback for browser-based provisioning, NVS
-persistence of all configuration, an offline telemetry buffer, and periodic
-HTTP delivery. Build instructions are in
-[`firmware/INSTRUCCIONES.txt`](firmware/INSTRUCCIONES.txt); a precompiled
-`firmware.bin` ships with each release.
-
----
-
-## Companion Tools
 
 | Tool | Purpose |
-| --- | --- |
-| `tools/capturar_datos.py` | Record live USB telemetry (calibrated values, raw DHT11 readings, raw 12-bit ADC, HTTP delivery status) to CSV: `python tools/capturar_datos.py COM5 300 out.csv` |
-| `tools/benchmark_comisionado.py` | Unattended end-to-end commissioning benchmark (N timed runs with per-phase breakdown): `python tools/benchmark_comisionado.py COM5 SSID PASS 5` |
-| `tools/validar_deteccion_pines.py` | Repeated pin-discovery trials against declared ground-truth pins, with raw ADC scans (use `-1` for a disconnected sensor): `python tools/validar_deteccion_pines.py COM5 A 15 34 water 20` |
-| `tools/medir_tiempos.py` | Per-unit commissioning-time statistics (mean, median, range) from the session audit logs |
-| `tools/take_screenshots_win.py` | Reproducible UI captures for documentation |
+|---|---|
+| `tools/validar_deteccion_pines.py` | Repeated pin-discovery trials against declared ground truth |
+| `tools/benchmark_comisionado.py` | Unattended end-to-end timing |
+| `tools/capturar_datos.py` | USB telemetry capture to CSV |
+| `tools/medir_tiempos.py` | Step times from the session log |
+| `tools/capture_screenshots.py` | Screenshots of every step (`docs/img`, light or dark) |
+| `tools/render_icons.py` | Rasterises the SVG icons (needs `cairosvg`) |
 
-Reference datasets recorded with these utilities on real hardware
-(ESP32 + DHT11 + FC-28) are included under [`data/`](data/): a five-minute
-telemetry capture, a five-run commissioning benchmark (median 51.0 s per
-unit), and a 200-trial pin-discovery validation on four boards.
-
----
-
-## Empirical validation
-
-Across five unattended end-to-end runs on real hardware, AgroCommish
-commissioned a node in a **median of 51.0 s per unit**, and the integrated
-verification step caught genuine sensor faults *before* packaging. The figure
-below shows a live telemetry capture: calibrated temperature, air humidity and
-soil moisture (left) alongside the raw 12-bit ADC trace used for FC-28
-calibration (right).
-
-<div align="center">
-<img src="docs/img/captured-data.png" width="820" alt="Captured telemetry: calibrated channels and raw ADC"/>
-</div>
-
-### Automatic pin discovery
-
-The `detect_pins` routine was run 200 times on four NodeMCU-32S boards under
-six wiring conditions, each trial compared against the pins declared by the
-operator.
-
-| Condition | Boards | Trials | DHT11 | FC-28 |
-| --- | --- | ---: | --- | --- |
-| Probe immersed, default wiring | 4 | 80 | 80/80 | 80/80 |
-| DHT11 moved to GPIO 4 | 1 | 20 | 20/20 | 20/20 |
-| DHT11 moved to GPIO 27 | 1 | 20 | 20/20 | 20/20 |
-| FC-28 disconnected | 1 | 20 | 20/20 | 20/20 absent |
-| No sensors connected | 1 | 20 | 20/20 absent | 20/20 absent |
-| Probe dry, in air | 1 | 40 | 40/40 | 0/40 |
-| **Total** | | **200** | **200/200** | **160/200** |
-
-No false positive occurred: of 1,040 readings on unconnected ADC channels,
-none fell inside an acceptance region (panel c). All 40 FC-28 misses come from
-a dry probe, which saturates at 4,095, just above the 4,094 bound. Discovery
-takes about 1 s when the DHT11 sits on the first candidate pin and up to 23 s
-when no DHT11 is connected (panel d).
-
-<div align="center">
-<img src="docs/img/pin-discovery-validation.png" width="820" alt="Sensor signals and pin-discovery validation"/>
-</div>
-
-The benchmark, telemetry and pin-discovery datasets ship in [`data/`](data/)
-so the results are fully reproducible.
-
----
-
-## Tests
-
-```bash
-pip install pytest
-python -m pytest tests/ -v
-```
-
-Continuous integration runs static analysis (pyflakes) and the full test
-suite on Windows and Ubuntu with Python 3.11 and 3.12 on every push.
-
----
-
-## Companion Ecosystem
-
-| Project | Role | Reference |
-| --- | --- | --- |
-| **AgroCommish** (this repo) | Manufactures and commissions ESP32 sensor nodes (detect → flash → provision → verify → activate) | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20655609-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20655609) |
-| **[AgroYachay](https://github.com/Andre031222/agroyachay)** | Cloud decision platform: monitoring, LLM agronomy, yield/revenue, reports | [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20829993-1d4ed8?style=flat-square)](https://doi.org/10.5281/zenodo.20829993) |
-
----
+The Windows executable is built with `pyinstaller AgroCommish.spec`; the release workflow builds it on every version tag.
 
 ## Citation
 
-If you use this software, please cite:
-
 ```bibtex
-@software{vilca2026agrocommish,
+@software{agrocommish,
   author  = {Vilca-Solorzano, Richar Andre and Yana-Yucra, Dina Maribel and
              Quispe-Vargas, Renato and Iba{\~n}ez-Quispe, Vladimiro and
              Torres-Cruz, Fred},
@@ -358,22 +192,18 @@ If you use this software, please cite:
              Manufacturing and Commissioning of ESP32-Based Agricultural
              IoT Sensor Nodes},
   year    = {2026},
-  version = {1.1.0},
+  version = {1.2.0},
   doi     = {10.5281/zenodo.20655609},
   url     = {https://github.com/Andre031222/agrocommish}
 }
 ```
 
-Citation metadata is also available in [`CITATION.cff`](CITATION.cff)
-(GitHub: "Cite this repository").
+The DOI above always resolves to the latest version; [`CITATION.cff`](CITATION.cff) feeds GitHub's *Cite this repository* button.
 
----
+## License and third-party assets
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-See Spanish documentation in [`docs/README.es.md`](docs/README.es.md).
+AgroCommish is released under the [MIT License](LICENSE). Icons are from [Lucide](https://lucide.dev) under the ISC License ([`assets/icons/LICENSE`](assets/icons/LICENSE)). `esptool` is called as an external program and keeps its own GPL-2.0 licence.
 
 <div align="center">
-<sub>Part of an open device-to-decision pipeline for Andean smallholder agriculture · Universidad Nacional del Altiplano (UNAP), Puno, Peru</sub>
+<sub>Universidad Nacional del Altiplano (UNAP) · Puno, Peru</sub>
 </div>

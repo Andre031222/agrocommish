@@ -17,8 +17,9 @@ _DEFAULTS = {
     "last_firmware": "",
     "last_port":     "",
     "av_email":      "",
-    "av_web_url":    "http://localhost:3000",
+    "av_web_url":    "https://agroyachay.ginit.dev",
     "language":      "es",
+    "appearance":    "system",
 }
 
 

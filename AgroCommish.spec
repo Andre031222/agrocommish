@@ -5,7 +5,7 @@ from PyInstaller.utils.hooks import collect_all
 datas = [('firmware', 'firmware'), ('core', 'core'), ('assets', 'assets')]
 _esptool = shutil.which('esptool.exe') or shutil.which('esptool')
 binaries = [(_esptool, '.')] if _esptool else []
-hiddenimports = ['serial', 'serial.tools', 'serial.tools.list_ports', 'customtkinter', 'esptool', 'qrcode', 'qrcode.image.pil', 'PIL._tkinter_finder', 'core.lang', 'core.detector', 'core.flasher', 'core.provisioner', 'core.config_manager', 'core.qr_generator']
+hiddenimports = ['serial', 'serial.tools', 'serial.tools.list_ports', 'customtkinter', 'esptool', 'qrcode', 'qrcode.image.pil', 'PIL._tkinter_finder', 'core.lang', 'core.detector', 'core.flasher', 'core.provisioner', 'core.config_manager', 'core.qr_generator', 'core.network', 'core.paths', 'ui.window', 'ui.theme', 'ui.widgets', 'ui.icons', 'ui.demo', 'ui.steps.detect', 'ui.steps.flash', 'ui.steps.configure', 'ui.steps.verify', 'ui.steps.activate']
 tmp_ret = collect_all('customtkinter')
 datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 tmp_ret = collect_all('esptool')
